@@ -14,9 +14,9 @@ import TrustIndicators from '../components/landing/TrustIndicators';
 
 // CHANGED: Removed ISO Certified — only meaningful trust stats kept
 const TRUST_STATS = [
-    { value: '50K+', label: 'Active Users',  icon: Users },
-    { value: '99%',  label: 'Success Rate',  icon: Star },
-    { value: '24/7', label: 'Availability',  icon: CheckCircle },
+    { value: '50K+', label: 'Active Users', icon: Users },
+    { value: '99%', label: 'Success Rate', icon: Star },
+    { value: '24/7', label: 'Availability', icon: CheckCircle },
 ];
 
 // CHANGED: Three glassmorphic quick-action cards below the hero replace the old stats strip
@@ -225,11 +225,6 @@ export default function Landing() {
                                 filter: 'blur(40px)',
                                 zIndex: 0,
                             }} />
-                            {/*
-                             * Mask-based blend: the wrapper clips the image with a radial
-                             * gradient mask so edges fade to transparent, blending into --bg-main.
-                             * No mix-blend-mode needed — works cleanly in both themes.
-                             */}
                             <div className="hero-img-wrap">
                                 <motion.img
                                     src={theme === 'dark' ? '/scales-dark.png' : '/scales-light.png'}
@@ -357,35 +352,36 @@ export default function Landing() {
                             ].map((f, i) => {
                                 const FeatureIcon = f.icon;
                                 return (
-                                <motion.div key={i}
-                                    initial={{ opacity: 0, y: 20 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    viewport={{ once: true }}
-                                    transition={{ delay: i * 0.07 }}
-                                    whileHover={{ y: -5 }}
-                                    style={{
-                                        padding: '2.25rem',
-                                        background: 'var(--bg-main)',
-                                        border: '1px solid var(--border-light)',
-                                        borderRadius: '16px',
-                                        cursor: 'default',
-                                        transition: 'border-color 0.25s ease, box-shadow 0.25s ease',
-                                    }}
-                                    onMouseEnter={e => { e.currentTarget.style.borderColor = f.color + '50'; e.currentTarget.style.boxShadow = `0 8px 24px ${f.color}15`; }}
-                                    onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--border-light)'; e.currentTarget.style.boxShadow = 'none'; }}
-                                >
-                                    <div style={{
-                                        width: '52px', height: '52px', borderRadius: '14px',
-                                        background: f.color + '12',
-                                        display: 'flex', alignItems: 'center', justifyContent: 'center',
-                                        marginBottom: '1.1rem',
-                                    }}>
-                                        <FeatureIcon size={26} style={{ color: f.color }} />
-                                    </div>
-                                    <h3 style={{ fontSize: '1.1rem', fontWeight: '700', color: 'var(--text-main)', marginBottom: '0.65rem' }}>{f.title}</h3>
-                                    <p style={{ fontSize: '0.92rem', color: 'var(--text-secondary)', lineHeight: '1.7', margin: 0 }}>{f.desc}</p>
-                                </motion.div>
-                            );})}
+                                    <motion.div key={i}
+                                        initial={{ opacity: 0, y: 20 }}
+                                        whileInView={{ opacity: 1, y: 0 }}
+                                        viewport={{ once: true }}
+                                        transition={{ delay: i * 0.07 }}
+                                        whileHover={{ y: -5 }}
+                                        style={{
+                                            padding: '2.25rem',
+                                            background: 'var(--bg-main)',
+                                            border: '1px solid var(--border-light)',
+                                            borderRadius: '16px',
+                                            cursor: 'default',
+                                            transition: 'border-color 0.25s ease, box-shadow 0.25s ease',
+                                        }}
+                                        onMouseEnter={e => { e.currentTarget.style.borderColor = f.color + '50'; e.currentTarget.style.boxShadow = `0 8px 24px ${f.color}15`; }}
+                                        onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--border-light)'; e.currentTarget.style.boxShadow = 'none'; }}
+                                    >
+                                        <div style={{
+                                            width: '52px', height: '52px', borderRadius: '14px',
+                                            background: f.color + '12',
+                                            display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                            marginBottom: '1.1rem',
+                                        }}>
+                                            <FeatureIcon size={26} style={{ color: f.color }} />
+                                        </div>
+                                        <h3 style={{ fontSize: '1.1rem', fontWeight: '700', color: 'var(--text-main)', marginBottom: '0.65rem' }}>{f.title}</h3>
+                                        <p style={{ fontSize: '0.92rem', color: 'var(--text-secondary)', lineHeight: '1.7', margin: 0 }}>{f.desc}</p>
+                                    </motion.div>
+                                );
+                            })}
                         </div>
                     </div>
                 </section>
@@ -455,19 +451,11 @@ export default function Landing() {
 
             <Footer />
 
-            {/* responsive grid + hero image blend rules */}
+            {/* Responsive grid + hero image blend rules */}
             <style>{`
-                /*
-                 * .hero-img-wrap uses a radial CSS mask so the image edges fade
-                 * to transparent, making the image "melt" into the page bg in
-                 * both light (#F7F8FA) and dark (#0F1117) themes cleanly.
-                 * The mask is an ellipse that is opaque in the centre and
-                 * transparent at the edges — no mix-blend-mode colour cast.
-                 */
                 .hero-img-wrap {
                     position: relative;
                     z-index: 1;
-                    /* Elliptical vignette: fully visible center, transparent rim */
                     -webkit-mask-image: radial-gradient(
                         ellipse 80% 80% at 50% 50%,
                         black 45%,
@@ -479,12 +467,9 @@ export default function Landing() {
                         transparent 100%
                     );
                 }
-
-                /* Drop any stray border-radius on the img itself */
                 .hero-img {
                     border-radius: 0;
                 }
-
                 @media (max-width: 900px) {
                     .hero-grid { grid-template-columns: 1fr !important; }
                     .hero-grid > div:last-child { display: none; }
